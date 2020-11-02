@@ -1,15 +1,21 @@
 import axios from '@/config/axios.config'
+import router from '@/router'
 import setJsonLocalStorage from "@/utils/setLocalStorage";
 import getJsonLocalStorage from "@/utils/getLocalStorage";
 
 export default {
   namespaced: true,
   state: {
-    token: null,
+    token: localStorage.getItem('token') || null,
     data: {
       email: '',
       name: '',
     },
+  },
+  getters: {
+    isLoggedIn(state) {
+      return !!state.token
+    }
   },
   actions: {
     register({commit, state}, payload) {
@@ -29,7 +35,27 @@ export default {
       return axios.post('user/auth', {
         name: payload.name,
         password: payload.password
+      }).then(res => {
+        localStorage.setItem('token', res.data.token)
+        commit('authSuccess', {
+          token: res.data.token,
+          name: payload.name
+        })
       })
+    },
+    logout({commit, state}, payload) {
+      localStorage.removeItem('token')
+      commit('authError')
+    }
+  },
+  mutations: {
+    authSuccess(state, payload) {
+      state.token = payload.token
+      state.data.name = payload.name
+    },
+    authError(state) {
+      state.token = null
+      state.data.name = null
     }
   }
 }

@@ -11,7 +11,6 @@ const MainContainer = () => import('@/containers/MainContainer')
 export default [
   {
     path: '/',
-    name: 'MainContainer',
     component: MainContainer,
     meta: {
       requiresAuth: true
@@ -29,6 +28,9 @@ export default [
     name: 'AuthContainer',
     component: AuthContainer,
     redirect: {name: 'SignUp'},
+    meta: {
+      noAuth: true
+    },
     children: [
       {
         path: 'login',

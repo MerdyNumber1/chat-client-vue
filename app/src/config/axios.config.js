@@ -1,4 +1,5 @@
 import axios from 'axios'
+import store from '@/store'
 
 axios.defaults.baseURL = process.env.VUE_APP_API_URL
 axios.defaults.headers.post['Content-Type'] = 'application/json'
@@ -10,7 +11,7 @@ if(token) {
 
 axios.interceptors.response.use(undefined, (err) => {
     if (err.status === 401) {
-      // logout
+      store.dispatch('user/logout')
     }
     return Promise.reject(err.response.data)
 })

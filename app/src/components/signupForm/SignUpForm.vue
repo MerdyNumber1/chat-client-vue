@@ -104,7 +104,6 @@ export default {
     },
     ...mapActions({
       register: 'user/register',
-      confirmation: 'user/confirmation',
     })
   },
 }
