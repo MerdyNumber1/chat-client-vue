@@ -2,6 +2,7 @@
 const Chat = () => import('@/views/chat/Chat')
 const Login = () => import('@/views/login/Login')
 const SignUp = () => import('@/views/signup/SignUp')
+const Confirm = () => import('@/views/confirm/Confirm')
 //containers
 const AuthContainer = () => import('@/containers/AuthContainer')
 const MainContainer = () => import('@/containers/MainContainer')
@@ -37,7 +38,16 @@ export default [
       {
         path: 'signup',
         name: 'SignUp',
-        component: SignUp
+        component: SignUp,
+      },
+      {
+        path: 'confirm',
+        name: 'ConfirmSignUp',
+        component: Confirm,
+        props: route => ({
+          email: route.query.email,
+          code: parseInt(route.query.code)
+        })
       }
     ]
   },

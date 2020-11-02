@@ -10,7 +10,6 @@ export default {
       email: '',
       name: '',
     },
-    confirmationOfRegistration: false,
   },
   actions: {
     register({commit, state}, payload) {
@@ -18,28 +17,19 @@ export default {
         name: payload.name,
         email: payload.email,
         password: payload.password
-      }).then(() => setJsonLocalStorage('confirmRegistration', {
-        email: payload.email
-      }))
+      })
     },
-    confirmRegistration({commit, state}, payload) {
+    confirm({commit, state}, payload) {
       return axios.post('user/confirm', {
         email: payload.email,
         code: payload.code
       })
     },
-    initConfirmation({commit}) {
-      const localStoreState = getJsonLocalStorage('confirmRegistration')
-      if(localStoreState.email) {
-        commit('setupConfirmation', localStoreState.email)
-        return true
-      }
-    }
-  },
-  mutations: {
-    setupConfirmation(state, payload) {
-      state.confirmationOfRegistration = true
-      state.data.email = payload
+    login({commit, state}, payload) {
+      return axios.post('user/auth', {
+        name: payload.name,
+        password: payload.password
+      })
     }
   }
 }

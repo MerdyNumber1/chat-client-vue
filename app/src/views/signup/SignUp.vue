@@ -10,7 +10,7 @@ import {SignUpForm} from '@/components'
 export default {
   name: 'SignUp',
   metaInfo: {
-    title: 'Вход'
+    title: 'Регистрация'
   },
   components: {
     'signup-form': SignUpForm
