@@ -6,7 +6,6 @@
     <b-form-row class="w-100">
       <b-form-textarea
         class="chat__input"
-        v-model="text"
         placeholder="Enter something..."
         rows="1"
       />
