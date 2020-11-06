@@ -1,7 +1,7 @@
 import axios from '@/config/axios.config'
 import router from '@/router'
-import setJsonLocalStorage from "@/utils/setLocalStorage";
-import getJsonLocalStorage from "@/utils/getLocalStorage";
+import setJsonLocalStorage from "@/utils/setLocalStorage"
+import getJsonLocalStorage from "@/utils/getLocalStorage"
 
 export default {
   namespaced: true,
@@ -33,10 +33,11 @@ export default {
     },
     login({commit, state}, payload) {
       return axios.post('user/auth', {
-        name: payload.name,
+        email: payload.email,
         password: payload.password
       }).then(res => {
         localStorage.setItem('token', res.data.token)
+        axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`
         commit('authSuccess', {
           token: res.data.token,
           name: payload.name
@@ -46,6 +47,13 @@ export default {
     logout({commit, state}, payload) {
       localStorage.removeItem('token')
       commit('authError')
+      router.push({name: 'Login'})
+    },
+    getCurrentUser({commit}) {
+      return axios.get('user/current')
+        .then(res => {
+          commit('setCurrentUser', res.data)
+        })
     }
   },
   mutations: {
@@ -56,6 +64,10 @@ export default {
     authError(state) {
       state.token = null
       state.data.name = null
+    },
+    setCurrentUser(state, payload) {
+      state.data.name = payload.name
+      state.data.email = payload.email
     }
   }
 }

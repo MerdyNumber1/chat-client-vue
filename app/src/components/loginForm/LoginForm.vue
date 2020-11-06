@@ -1,12 +1,13 @@
 <template>
   <b-form class="login-form">
     <b-alert :show="!!error" variant="danger">{{error}}</b-alert>
-    <b-form-group id="group-name" label="Ваше имя:" label-for="name">
+    <b-form-group id="group-email" label="Ваше email:" label-for="email">
       <b-form-input
         id="name"
         required
-        placeholder="Ваше имя"
-        v-model="loginData.name"
+        placeholder="Email"
+        v-model="loginData.email"
+        trim
       ></b-form-input>
     </b-form-group>
 
@@ -17,6 +18,7 @@
         required
         placeholder="Пароль"
         v-model="loginData.password"
+        trim
       ></b-form-input>
     </b-form-group>
 
@@ -44,7 +46,7 @@ export default {
       error: '',
       isSending: false,
       loginData: {
-        name: '',
+        email: '',
         password: '',
       }
     }
@@ -52,10 +54,10 @@ export default {
   methods: {
     async handleLogin() {
       const isValid = new Validator({
-        name: this.loginData.name,
+        email: this.loginData.email,
         password: this.loginData.password
       }, {
-        'name': 'required|min:3|max:16',
+        'email': 'required|email',
         'password': 'required|min:6|max:32'
       })
 
@@ -64,7 +66,7 @@ export default {
         this.isSending = true
         try {
           let res = await this.login({
-            name: this.loginData.name,
+            email: this.loginData.email,
             password: this.loginData.password
           })
           this.$router.push({name: 'Chat'})
@@ -73,7 +75,7 @@ export default {
         }
         this.isSending = false
       } else {
-        this.error = isValid.errors.first('name') ||
+        this.error = isValid.errors.first('email') ||
           isValid.errors.first('password')
       }
     },

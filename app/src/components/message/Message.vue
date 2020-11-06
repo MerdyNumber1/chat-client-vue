@@ -1,9 +1,9 @@
 <template>
-  <b-card :class="['message', self && 'message_self']">
-      <b-row>
-        <div class="message__name">Russell</div>
-        <div class="message__text">Hello, I'm Russell. How can I help you today?</div>
-        <div class="message__time">08:55</div>
+  <b-card :class="['message', message.self && 'message_self']">
+      <b-row class="align-items-center">
+        <div class="message__name">{{ message.name }}</div>
+        <div class="message__text">{{ message.text }}</div>
+        <div class="message__time">{{ message.time }}</div>
       </b-row>
   </b-card>
 </template>
@@ -12,7 +12,8 @@
 export default {
   name: 'Message',
   props: {
-    self: Boolean
+    self: Boolean,
+    message: Object
   }
 }
 </script>
@@ -22,10 +23,10 @@ export default {
   display: flex;
   flex: 1;
   flex-direction: row;
-  width: 90%;
+  width: 95%;
   align-items: flex-start;
   justify-content: flex-start;
-  margin-bottom: 40px;
+  margin-bottom: 10px;
   padding: 0 10px;
   &_self {
     justify-content: flex-end;
@@ -40,7 +41,7 @@ export default {
     font-size: 14px;
   }
   &__text {
-    width: 80%;
+    width: 85%;
     margin: 0 20px;
   }
 }

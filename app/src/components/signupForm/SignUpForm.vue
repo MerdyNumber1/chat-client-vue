@@ -15,6 +15,7 @@
           required
           placeholder="Введите Email"
           v-model="registerData.email"
+          trim
         />
       </b-form-group>
 
@@ -24,6 +25,7 @@
           required
           placeholder="Ваше имя"
           v-model="registerData.name"
+          trim
         />
       </b-form-group>
 
@@ -34,6 +36,7 @@
           required
           placeholder="Пароль"
           v-model="registerData.password"
+          trim
         />
       </b-form-group>
 
