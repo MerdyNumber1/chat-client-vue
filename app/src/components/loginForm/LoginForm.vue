@@ -65,7 +65,7 @@ export default {
         this.error = ''
         this.isSending = true
         try {
-          let res = await this.login({
+          await this.login({
             email: this.loginData.email,
             password: this.loginData.password
           })
@@ -75,7 +75,7 @@ export default {
         }
         this.isSending = false
       } else {
-        this.error = isValid.errors.first('email') ||
+        this.error = isValid.errors.first('email ') ||
           isValid.errors.first('password')
       }
     },
