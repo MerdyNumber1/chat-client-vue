@@ -1,7 +1,7 @@
 <template>
   <b-form class="login-form">
     <b-alert :show="!!error" variant="danger">{{error}}</b-alert>
-    <b-form-group id="group-email" label="Ваше email:" label-for="email">
+    <b-form-group id="group-email" label="Ваш email:" label-for="email">
       <b-form-input
         id="name"
         required
@@ -75,7 +75,7 @@ export default {
         }
         this.isSending = false
       } else {
-        this.error = isValid.errors.first('email ') ||
+        this.error = isValid.errors.first('email') ||
           isValid.errors.first('password')
       }
     },

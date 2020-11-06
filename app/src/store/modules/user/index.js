@@ -19,20 +19,20 @@ export default {
   },
   actions: {
     register({commit, state}, payload) {
-      return axios.post('user', {
+      return axios.post('users', {
         name: payload.name,
         email: payload.email,
         password: payload.password
       })
     },
     confirm({commit, state}, payload) {
-      return axios.post('user/confirm', {
+      return axios.post('users/confirm', {
         email: payload.email,
         code: payload.code
       })
     },
     login({commit, state}, payload) {
-      return axios.post('user/auth', {
+      return axios.post('users/auth', {
         email: payload.email,
         password: payload.password
       }).then(res => {
@@ -50,7 +50,7 @@ export default {
       router.push({name: 'Login'})
     },
     getCurrentUser({commit}) {
-      return axios.get('user/current')
+      return axios.get('users/me')
         .then(res => {
           commit('setCurrentUser', res.data)
         })

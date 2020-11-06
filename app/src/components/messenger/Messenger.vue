@@ -52,6 +52,18 @@ export default {
       textMessage: ''
     }
   },
+  mounted() {
+    this.$axios.get('/messages')
+      .then(res => {
+        res.forEach(msg => {
+          this.messages.push({
+            ...msg,
+            self: msg.name === this.user.name,
+            time: moment(msg.createdAt).format('h:mm')
+          })
+        })
+      })
+  },
   sockets: {
     connect() {
       this.socketConnected = true
