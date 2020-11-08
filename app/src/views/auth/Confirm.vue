@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import ConfirmForm from "@/components/confirmForm/ConfirmForm";
+import ConfirmForm from "@/components/forms/ConfirmForm";
 
 export default {
   name: 'Confirm',

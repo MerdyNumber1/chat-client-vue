@@ -3,7 +3,7 @@ import App from './App.vue'
 import './registerServiceWorker'
 import router from './router'
 import store from './store'
-import BootstrapVue from 'bootstrap-vue'
+import {BootstrapVue, BootstrapVueIcons} from 'bootstrap-vue'
 import VueMeta from 'vue-meta'
 import axios from '@/config/axios.config'
 import VueSocketIO from 'vue-socket.io'
@@ -14,6 +14,8 @@ Vue.config.productionTip = false
 
 Vue.use(VueMeta)
 Vue.use(BootstrapVue)
+Vue.use(BootstrapVueIcons)
+
 Vue.use(new VueSocketIO({
     debug: true,
     connection: SocketIO('http://localhost:7000/chat', {

@@ -6,6 +6,7 @@
           v-for="(message, i) in messages"
           :key="`msg-${i}`"
           :message="message"
+          :user="user"
         />
       </div>
       <b-input-group>
@@ -21,6 +22,8 @@
           <b-button
             class="chat__submit"
             @click="handleSendMessage"
+            variant="primary"
+            type="submit"
           >
             Отправить
           </b-button>
@@ -35,7 +38,7 @@
 </template>
 
 <script>
-import Message from "@/components/message/Message";
+import Message from "./Message"
 import {mapState} from 'vuex'
 import Validator from 'validatorjs'
 import moment from 'moment'
@@ -55,11 +58,11 @@ export default {
   mounted() {
     this.$axios.get('/messages')
       .then(res => {
-        res.forEach(msg => {
-          this.messages.push({
+        res.data.forEach(msg => {
+          this.handleReceiveMessage({
             ...msg,
-            self: msg.name === this.user.name,
-            time: moment(msg.createdAt).format('h:mm')
+            name: msg.user.name,
+            time: msg.createdAt
           })
         })
       })
@@ -69,11 +72,7 @@ export default {
       this.socketConnected = true
     },
     message(msg) {
-      this.messages.push({
-        ...msg,
-        self: msg.name === this.user.name,
-        time: moment(msg.time).format('h:mm')
-      })
+      this.handleReceiveMessage(msg)
     }
   },
   methods: {
@@ -85,14 +84,19 @@ export default {
       })
       if(isValid.passes()) {
         this.$socket.emit('message', this.textMessage)
-        this.messages.push({
+        this.handleReceiveMessage({
           text: this.textMessage,
-          self: true,
           name: this.user.name,
-          time: moment().format('h:mm')
         })
         this.textMessage = ''
       }
+    },
+    handleReceiveMessage(msg) {
+      this.messages.push({
+        text: msg.text,
+        name: msg.name,
+        time: msg.time ? moment(msg.time).format('h:mm') : moment().format('h:mm')
+      })
     }
   },
   computed: {

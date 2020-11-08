@@ -46,8 +46,8 @@ export default {
     },
     logout({commit, state}, payload) {
       localStorage.removeItem('token')
+      axios.defaults.headers.common['Authorization'] = null
       commit('authError')
-      router.push({name: 'Login'})
     },
     getCurrentUser({commit}) {
       return axios.get('users/me')

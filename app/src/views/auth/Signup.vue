@@ -5,15 +5,15 @@
 </template>
 
 <script>
-import {SignUpForm} from '@/components'
+import SignupForm from '@/components/forms/SignupForm'
 
 export default {
-  name: 'SignUp',
+  name: 'Signup',
   metaInfo: {
     title: 'Регистрация'
   },
   components: {
-    'signup-form': SignUpForm
+    'signup-form': SignupForm
   }
 }
 </script>

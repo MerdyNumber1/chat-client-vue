@@ -1,5 +1,5 @@
 <template>
-  <b-card :class="['message', message.self && 'message_self']">
+  <b-card :class="['message', user.name === message.name && 'message_self']">
       <b-row class="align-items-center">
         <div class="message__name">{{ message.name }}</div>
         <div class="message__text">{{ message.text }}</div>
@@ -12,8 +12,8 @@
 export default {
   name: 'Message',
   props: {
-    self: Boolean,
-    message: Object
+    message: Object,
+    user: Object
   }
 }
 </script>

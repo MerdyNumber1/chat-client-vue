@@ -1,8 +1,8 @@
 // pages
 const Chat = () => import('@/views/chat/Chat')
-const Login = () => import('@/views/login/Login')
-const SignUp = () => import('@/views/signup/SignUp')
-const Confirm = () => import('@/views/confirm/Confirm')
+const Login = () => import('@/views/auth/Login')
+const SignUp = () => import('@/views/auth/Signup')
+const Confirm = () => import('@/views/auth/Confirm')
 //containers
 const AuthContainer = () => import('@/containers/AuthContainer')
 const MainContainer = () => import('@/containers/MainContainer')
