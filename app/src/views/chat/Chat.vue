@@ -8,7 +8,7 @@ import Messenger from "@/components/messenger/Messenger";
 export default {
   name: 'Chat',
   metaInfo: {
-    title: 'Chat'
+    title: 'Main'
   },
   components: {
     'messenger': Messenger

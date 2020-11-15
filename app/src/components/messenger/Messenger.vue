@@ -1,13 +1,17 @@
 <template>
   <div class="chat__main d-flex justify-content-center">
     <div class="chat__container w-100" v-if="true">
-      <div class="chat__box chatContainerScroll">
-        <message
-          v-for="(message, i) in messages"
-          :key="`msg-${i}`"
-          :message="message"
-          :user="user"
-        />
+      <div class="chat__wrapper" ref="chat">
+        <div class="chat__box" ref="messages">
+          <message
+            v-for="(message, i) in messages"
+            :key="`msg-${i}`"
+            :message="message"
+            :user="user"
+            @selfMessageMounted="scrollToBottom"
+            @messageMounted="handleScroll"
+          />
+        </div>
       </div>
       <b-input-group>
         <b-form-input
@@ -64,6 +68,7 @@ export default {
             name: msg.user.name,
             time: msg.createdAt
           })
+          this.scrollToBottom()
         })
       })
   },
@@ -95,8 +100,14 @@ export default {
       this.messages.push({
         text: msg.text,
         name: msg.name,
-        time: msg.time ? moment(msg.time).format('h:mm') : moment().format('h:mm')
+        time: msg.time ? moment(msg.time).format('HH:mm') : moment().format('HH:mm')
       })
+    },
+    handleScroll(messageHeight = 0, wrap = this.$refs.chat, scrollElement = this.$refs.messages) {
+      if((wrap.scrollTop + wrap.offsetHeight + messageHeight + 10) === scrollElement.scrollHeight) wrap.scrollTop = scrollElement.scrollHeight
+    },
+    scrollToBottom(wrap = this.$refs.chat, scrollElement = this.$refs.messages) {
+      wrap.scrollTop = scrollElement.scrollHeight
     }
   },
   computed: {
@@ -117,9 +128,13 @@ export default {
     justify-content: flex-end;
     align-items: center;
   }
+  &__wrapper {
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+  }
   &__box {
     width: 100%;
-    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;

@@ -3,7 +3,6 @@
     <b-container>
       <b-navbar-brand href="#">Chat</b-navbar-brand>
       <b-navbar-nav class="ml-auto d-flex justify-content-end align-items-center">
-        <b-icon icon="gear" class="mr-2" color="white"></b-icon>
         <b-nav-item-dropdown :text="user.name" right>
           <b-dropdown-item @click="handleLogout">Выйти</b-dropdown-item>
         </b-nav-item-dropdown>
