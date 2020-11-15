@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import App from './App.vue'
-import './registerServiceWorker'
 import router from './router'
 import store from './store'
 import {BootstrapVue, BootstrapVueIcons} from 'bootstrap-vue'
@@ -17,8 +16,8 @@ Vue.use(BootstrapVue)
 Vue.use(BootstrapVueIcons)
 
 Vue.use(new VueSocketIO({
-    debug: true,
-    connection: SocketIO('http://localhost:7000/chat', {
+    autoConnect: false,
+    connection: SocketIO(process.env.VUE_APP_SOCKET_URL, {
       query: `token=${localStorage.getItem('token')}`
     }),
     vuex: {

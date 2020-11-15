@@ -8,7 +8,6 @@
 <script>
 import {mapActions} from 'vuex'
 import Navbar from '@/components/common/Navbar'
-import router from "@/router";
 
 export default {
   name: 'MainContainer',
@@ -17,6 +16,8 @@ export default {
   },
   mounted() {
     this.getCurrentUser()
+    this.$socket.io.opts.query = {token : localStorage.getItem('token')}
+    this.$socket.open()
   },
   methods: {
     ...mapActions({
