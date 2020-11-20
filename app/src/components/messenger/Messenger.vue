@@ -89,10 +89,6 @@ export default {
       })
       if(isValid.passes()) {
         this.$socket.emit('message', this.textMessage)
-        this.handleReceiveMessage({
-          text: this.textMessage,
-          name: this.user.name,
-        })
         this.textMessage = ''
       }
     },
