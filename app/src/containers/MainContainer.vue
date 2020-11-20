@@ -8,6 +8,18 @@
 <script>
 import {mapActions} from 'vuex'
 import Navbar from '@/components/common/Navbar'
+import Vue from 'vue'
+import VueSocketIO from 'vue-socket.io'
+import SocketIO from 'socket.io-client'
+import store from "@/store";
+
+
+Vue.use(new VueSocketIO({
+    connection: SocketIO(process.env.VUE_APP_SOCKET_URL, {
+      query: `token=${localStorage.getItem('token')}`
+    }),
+  })
+)
 
 export default {
   name: 'MainContainer',
@@ -16,8 +28,6 @@ export default {
   },
   mounted() {
     this.getCurrentUser()
-    this.$socket.io.opts.query = {token : localStorage.getItem('token')}
-    this.$socket.open()
   },
   methods: {
     ...mapActions({
